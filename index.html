@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Notes</title>
+  </head>
+  <body>
+    <header id="app-header">
+      <h1 id="app-header-title">Notes</h1>
+    </header>
+    <main class="d-flex">
+
+      <section class="mr-3">
+        <form id="note-add">
+          <label for="note-entry">Nueva nota</label>
+          <input type="text" id="note-entry" name="note-entry">
+          <input type="submit" name="note-submit" id="note-submit" value="+">
+        </form>
+
+        <div id="notes">
+          <!-- notes -->
+        </div>
+
+      </section>
+
+      <section>
+        <h2  id="active-note">Abre una nota...</h2>
+        <form >
+          <!-- notebody -->
+          <textarea name="note-body" id="note-body"></textarea>
+        </form>
+      </section>
+
+    </main>
+    <script type="module" src="/src/renderer.ts"></script>
+  </body>
+</html>
