@@ -1,5 +1,4 @@
-import { app, BrowserWindow, ipcMain, ipcRenderer } from 'electron';
-import { Note } from './classes/Note';
+import { app, BrowserWindow, ipcMain } from 'electron';
 import { NoteHandler } from './classes/NoteHandler';
 import path from 'path';
 
@@ -13,6 +12,7 @@ const createWindow = () => {
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
+    // frame:false,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration:true

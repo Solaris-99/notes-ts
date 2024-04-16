@@ -48,12 +48,21 @@ async function updateNotes(draw: boolean): void {
         document.getElementById('active-note').innerHTML = notes.find((e)=>e.id==NoteRenderer.currentNoteId).title;
         document.getElementById('note-body').value = notes.find((e)=>e.id==NoteRenderer.currentNoteId).body;
     }
-
 }
 updateNotes(true)
 
+const drawPlaceholder = function(){
+    if(!window.document.getElementById('notes').hasChildNodes()){
+        window.document.getElementById('notes').innerHTML = "<p id='notes-placeholder'>Aquí apareceran tus tareas</p>";
+    }
+}
+drawPlaceholder();
+
 const addNote = async function (e: Event) {
     e.preventDefault();
+    if(window.document.getElementById('notes-placeholder')){
+        window.document.getElementById('notes').removeChild(window.document.getElementById('notes-placeholder'))
+    }
     const entryForm = document.getElementById('note-entry');
     if (entryForm.value == '') { return }
     const title: string = entryForm.value;
@@ -62,7 +71,8 @@ const addNote = async function (e: Event) {
     const note: Note = await window.IPC.invoke('retrieve-lastNote');
     notes.unshift(note)
     renderer.drawNote(notes[0])
-
+    document.getElementById(`@NOTE-${note.id}`).click();
+    
 }
 
 

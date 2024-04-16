@@ -5,16 +5,19 @@
     <title>Notes</title>
   </head>
   <body>
-    <header id="app-header">
+    <header id="app-header" class="d-flex">
+      <button id="app-menu-btn">&#11208;</button>
       <h1 id="app-header-title">Notes</h1>
     </header>
     <main class="d-flex">
 
-      <section class="mr-3">
+      <section id="notes-section">
         <form id="note-add">
-          <label for="note-entry">Nueva nota</label>
-          <input type="text" id="note-entry" name="note-entry">
-          <input type="submit" name="note-submit" id="note-submit" value="+">
+          <label for="note-entry" style="font-size: 12px;display: block;margin:0;padding: 0;">Nueva nota</label>
+          <div class="d-flex justify-between">
+            <input type="text" id="note-entry" name="note-entry" placeholder="Nombre de la nota...">
+            <input type="submit" name="note-submit" id="note-submit" value="+">
+          </div>
         </form>
 
         <div id="notes">
@@ -23,8 +26,10 @@
 
       </section>
 
-      <section>
-        <h2  id="active-note">Abre una nota...</h2>
+      <section id="note-body-section">
+        <div class="d-flex justify-between">
+          <h2  id="active-note">Abre una nota...</h2>
+        </div>
         <form >
           <!-- notebody -->
           <textarea name="note-body" id="note-body"></textarea>
@@ -33,5 +38,33 @@
 
     </main>
     <script type="module" src="/src/renderer.ts"></script>
+    <script>
+      window.onkeydown = (e)=>{
+        if(e.keyCode == 8 && document.getElementById('notes-section').style.display == 'none'){
+          document.getElementById('app-menu-btn').style.transform = 'rotate(90deg)'
+          document.getElementById('notes-section').style.display = 'block';
+          document.getElementById('note-body-section').style.display = 'none';
+        }
+      }
+
+
+      document.getElementById('app-menu-btn').addEventListener('click',(e)=>{
+        document.getElementById('app-menu-btn').style.transitionDuration = '0.5s';
+        if(document.getElementById('notes-section').style.display == 'none'){
+          //display NOTES
+          document.getElementById('app-menu-btn').style.transform = 'rotate(90deg)'
+          document.getElementById('notes-section').style.display = 'block';
+          document.getElementById('note-body-section').style.display = 'none';
+        }
+        else{
+          //display NOTE BODY
+          document.getElementById('app-menu-btn').style.transform = 'rotate(0deg)'
+          document.getElementById('notes-section').style.display = 'none';
+          document.getElementById('note-body-section').style.display = 'block';
+        }
+      
+      })
+    </script>
   </body>
+
 </html>

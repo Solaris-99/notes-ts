@@ -1,16 +1,19 @@
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
     Arial, sans-serif;
-  margin: auto;
-  max-width: 38rem;
-  padding: 2rem;
-  color:white;
-  background:black;
+  color: #656565;
+  background:#e4cf92;
+  max-height: 100vh;
+
 }
 
 #app-header{
+  position:sticky;
+  top:0px;
   margin-top:0;
   padding-top: 0;
+  border-bottom: 1px gray groove;
+  background-color: #e4cf92;
 }
 
 #app-header-title{
@@ -18,6 +21,11 @@ body {
   padding:0;
   margin-top:0;
   margin-bottom:5px;
+  color:black;
+}
+
+.d-inline{
+  display: inline;
 }
 
 .d-flex{
@@ -38,35 +46,68 @@ body {
   font-size:10px;
   white-space: pre-line;
   max-width: 300px;
-  max-height: 56px;
-  border: 1px solid blue;
+  height: 26px;
   overflow: hidden;
   text-overflow: "ellipsis";
 }
 
 .note-title{
   margin:2px;
-  border: 1px red solid;
+  color:black;
 }
 
 .note-del-btn{
   margin-bottom: auto;
+  margin-right: -2px;
   height: min-content;
   display: inline-block;
   font-size:10px;
   width: min-content;
   background: red;
   color:white;
-  border:none;
+  border:red outset 1px;
+}
+
+.note-del-btn:hover{
+  cursor:pointer;
 }
 
 .note-item{
-  border:1px solid green;
-  margin-bottom:4px;
+  background-color: #f0d481;
+  border-image: radial-gradient(rgb(41, 41, 41), #ffffff00) 75;
+  border-style: outset;
+  border-width: 0 2px 0 2px;
+  padding: 0 0 5px 5px;
+  margin-bottom:1px;
+}
+
+.note-item:hover{
+  cursor:pointer;
+  background-color: #91f6fd;
 }
 
 .mr-3{
   margin-right: 1rem;
+}
+
+.w-100{
+  width: 100%;
+}
+
+.w-75{
+  width: 75%;
+}
+
+.w-50{
+  width: 50%;
+}
+
+.w-25{
+  width: 25%;
+}
+
+.justify-between{
+  justify-content:space-between
 }
 
 #active-note{
@@ -79,16 +120,62 @@ body {
 #note-add{
   margin-top:2px;
   margin-bottom:5px;
+  width: 100%;
 }
 
 #notes{
-  height: 400px;
-  width: 300px;
   overflow: auto;
+  border-image: radial-gradient(#656565FF, #ffffff00) 75;
+  border-style: groove;
+  border-width: 2px 2px 2px 2px;
 }
 
 #note-body{
   resize:none;
-  height:400px;
-  width: 250px;
+  width: 99%;
+  height: 80vh;
+  background-color: #eee0ba;
+}
+
+#note-entry{
+  background-color: #fff5d8;
+  border: 1px groove gray;
+  width: 90%;
+  height: 1.5rem;
+  margin:0;
+  padding: 0;
+}
+
+#note-submit{
+  background-color: #fdeab0;
+  border: 1px outset gray;
+  width: min-content;
+  height: min-content;
+  margin-top: auto;
+  margin-bottom:auto;
+}
+
+section{
+  width: 100%;
+}
+
+#note-body-section{
+  display: none;
+}
+
+#app-menu-btn{
+  background-color: unset;
+  border: none;
+  margin-top:auto;
+  margin-bottom:auto;
+  margin-right:5px;
+  border-radius: 10px;
+  height: 20px;
+  width: 20px;
+  transition: 0.5s;
+}
+
+#app-menu-btn:hover{
+  cursor:pointer;
+  background-color: #91f6fd;
 }

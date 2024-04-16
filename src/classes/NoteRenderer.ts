@@ -31,6 +31,7 @@ private constructHTMLElement(note : Note){
     }
 
     delButton.addEventListener('click',async ()=>{
+        //removing element
         const noteElement = window.document.getElementById(`@NOTE-${note.id}`);
         noteElement.parentElement.removeChild(noteElement);
         window.IPC.send('note-deleted',note.id);
@@ -43,6 +44,10 @@ private constructHTMLElement(note : Note){
             NoteRenderer.currentNoteId = -1;
         }
 
+        if(!window.document.getElementById('notes').hasChildNodes()){
+            window.document.getElementById('notes').innerHTML = "<p id='notes-placeholder'>Aquí apareceran tus tareas</p>";
+        }
+
     });
 
     headerRow.appendChild(header);
@@ -52,9 +57,18 @@ private constructHTMLElement(note : Note){
 
     topContainer.addEventListener('click', (e)=>{
         // clicking the note
+        document.getElementById('app-menu-btn').style.transform = 'rotate(0deg)'
         const textarea = window.document.getElementById(this.noteTextAreaId);
         textarea.value = note.body;
         window.document.getElementById(this.noteActiveId).innerHTML = note.title;
+        if(document.getElementById('notes-section').style.display == 'none'){
+            document.getElementById('notes-section').style.display = 'block';
+            document.getElementById('note-body-section').style.display = 'none';
+          }
+          else{
+            document.getElementById('notes-section').style.display = 'none';
+            document.getElementById('note-body-section').style.display = 'block';
+          }
         textarea.focus();
 
     })
