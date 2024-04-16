@@ -29,17 +29,35 @@ private constructHTMLElement(note : Note){
     else{
         extract.innerHTML = 'Nota vacía...';
     }
+    const onElementPressed = () => {
+        // clicking the note
+        document.getElementById('app-menu-btn').style.transform = 'rotate(0deg)'
+        const textarea = window.document.getElementById(this.noteTextAreaId);
+        textarea.value = note.body;
+        window.document.getElementById(this.noteActiveId).innerHTML = note.title;
+        if(document.getElementById('notes-section').style.display == 'none'){
+            document.getElementById('notes-section').style.display = 'block';
+            document.getElementById('note-body-section').style.display = 'none';
+          }
+          else{
+            document.getElementById('notes-section').style.display = 'none';
+            document.getElementById('note-body-section').style.display = 'block';
+          }
+        textarea.focus();
+        return
+    }
 
     delButton.addEventListener('click',async ()=>{
         //removing element
         const noteElement = window.document.getElementById(`@NOTE-${note.id}`);
+        noteElement.removeEventListener('click',onElementPressed);
         noteElement.parentElement.removeChild(noteElement);
         window.IPC.send('note-deleted',note.id);
         NoteHandlerRender.notes = await window.IPC.invoke('retrieve-notes');
         console.log('render-side notes')
         console.log(NoteHandlerRender.notes)
         if(note.id == NoteRenderer.currentNoteId){
-            window.document.getElementById(this.noteActiveId).innerHTML = 'Abre una nota...'
+            window.document.getElementById(this.noteActiveId).innerHTML = 'Abre una nota...';
             window.document.getElementById(this.noteTextAreaId).innerHTML = '';
             NoteRenderer.currentNoteId = -1;
         }
@@ -55,23 +73,10 @@ private constructHTMLElement(note : Note){
     topContainer.appendChild(headerRow);
     topContainer.appendChild(extract);
 
-    topContainer.addEventListener('click', (e)=>{
-        // clicking the note
-        document.getElementById('app-menu-btn').style.transform = 'rotate(0deg)'
-        const textarea = window.document.getElementById(this.noteTextAreaId);
-        textarea.value = note.body;
-        window.document.getElementById(this.noteActiveId).innerHTML = note.title;
-        if(document.getElementById('notes-section').style.display == 'none'){
-            document.getElementById('notes-section').style.display = 'block';
-            document.getElementById('note-body-section').style.display = 'none';
-          }
-          else{
-            document.getElementById('notes-section').style.display = 'none';
-            document.getElementById('note-body-section').style.display = 'block';
-          }
-        textarea.focus();
 
-    })
+
+
+    topContainer.addEventListener('click',onElementPressed)
 
 
     return topContainer;
